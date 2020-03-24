@@ -1,5 +1,6 @@
 import os
-
+from flask import request
+from flask import render_template
 from flask import Flask, session
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -24,3 +25,16 @@ db = scoped_session(sessionmaker(bind=engine))
 @app.route("/")
 def index():
     return "Project 1: TODO"
+
+def show_registration_page():
+    return render_template('register.html')
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'GET':
+        return show_registration_page()
+    else:
+        for key, value in request.form.items():
+            if (key != "submit"):
+                print("key: {0}, value: {1}".format(key, value))
+        return show_registration_page()

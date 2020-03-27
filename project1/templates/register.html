@@ -541,7 +541,7 @@
 
       
 
-<!-- '"` --><!-- </textarea></xmp> --></option></form><form autocomplete="off" id="signup-form" class="setup-form js-signup-form js-octocaptcha-parent" action="/register" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="nCo8K2Qd58Brh8FOr3aYtG9Hz5fDtLcSG+nBAd27EVlsi7mj/dhII8ek3UFufzyxqyvUgSbApUHH0qrGUPuOpw==" />
+<!-- '"` --><!-- </textarea></xmp> --></option></form><form autocomplete="off" id="signup-form" class="setup-form js-signup-form js-octocaptcha-parent" action="" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="nCo8K2Qd58Brh8FOr3aYtG9Hz5fDtLcSG+nBAd27EVlsi7mj/dhII8ek3UFufzyxqyvUgSbApUHH0qrGUPuOpw==" />
 
   <!-- <auto-check src="/signup_check/username?suggest_usernames=true" required> -->
     <dl class="form-group my-3 required"><dt class="input-label"><label name="user[login]" autocapitalize="off" autofocus="autofocus" required="required" for="user_login">Username</label></dt><dd><input name="username" autocapitalize="off" autofocus="autofocus" required="required" class="form-control input py-1" type="text" id="user_login" /></dd></dl>
@@ -617,6 +617,7 @@
 <button
   class="btn-mktg signup-btn  js-octocaptcha-form-submit width-full"
   type="submit"
+  formaction="/register"
   height="64px"
     data-disable-invalid
       data-disable-with="Creating account&hellip;"
@@ -629,9 +630,10 @@
 <button
   class="btn-mktg login-btn  js-octocaptcha-form-submit width-full"
   type="submit"
+  formaction="auth"
   height="64px"
     data-disable-invalid
-      data-disable-with="Creating account&hellip;"
+      data-disable-with="Login to your account&hellip;"
     disabled
     id="login_button"
     data-ga-click="Login funnel entrance, click, text: Select a plan;"

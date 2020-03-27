@@ -1,7 +1,9 @@
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
+from flask import url_for
 from models import *
 from datetime import datetime
+from sqlalchemy import and_
 from models import User
 
 app = Flask(__name__)
@@ -29,28 +31,30 @@ def register_user(request):
     except:
         return False
 
-@app.route('/auth', methods=["GET"])
-def login():
-    req = request.form
-    if User.query.filter_by(req.get("username"), req.get("password")).count() == 1:
-        session["USERNAME"] = req.get("username")
-        return render_template("/user_profile")
-    else:
-        return render_template("/register", message="Invalid Login Credentials")
+@app.route('/logout', methods=["GET"])
+def logout():
+    # session = requests.session()
+    # session["USERNAME"] = None
+    return render_template("register", message="You have successfully logged out...")
 
 @app.route('/user_profile', methods=["GET"])
 def user_profile():
-    if not session.get["USERNAME"] is None:
-        username = session.get("USERNAME")
-        return render_template("/user_profile.html", username=username)
-    else:
-        return render_template("/register")
+    # session = requests.session()
+    # if not session.get["USERNAME"] is None:
+    # username = session.get("USERNAME")
+    return render_template("/user_profile.html")
 
-@app.route('/logout', methods=["GET"])
-def logout():
-    session = requests.session()
-    session["USERNAME"] = None
-    return render_template("/register", message="You have successfully logged out...")
+@app.route('/auth', methods=["POST"])
+def login():
+    req = request.form
+    username = req.get("username")
+    password = req.get("password")
+    users = User.query.filter(and_(User.username==username, User.password==password)).all()
+    if len(users) == 1:
+        # session["USERNAME"] = req.get("username")
+        return redirect(url_for("user_profile"))
+    else:
+        return render_template("/register", message="Invalid Login Credentials")
 
 
 @app.route('/register', methods=['GET', 'POST'])

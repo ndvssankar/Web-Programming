@@ -548,10 +548,10 @@
     <input type="hidden" data-csrf="true" value="LFbHsBGKziPcRp9JkYbxgQec+8LWTZ1UHGI5mOgOkSdi+JOEcMLwfoPilRkJprWqIogKzf+tsyND/yT7h9mHiQ==" />
   <!-- </auto-check> -->
 
-  <!-- <auto-check src="/signup_check/email" required> -->
+  <!-- <auto-check src="/signup_check/email" required> 
     <dl class="form-group my-3 required"><dt class="input-label"><label name="user[email]" autocapitalize="off" required="required" for="user_email">Email address</label></dt><dd><input name="email" autocapitalize="off" required="required" class="form-control input py-1" value="" type="text" id="user_email" /></dd></dl>
     <input type="hidden" data-csrf="true" value="7zJLWahXd79seShhe+tFUTreirhkeN4HsAi/8B7QQgMwkOy6TkpaK8hplcNqOW6CXPUXRxPemGUFMk5GhFSv/g==" />
-  <!-- </auto-check> -->
+  </auto-check> -->
 
   <password-strength
     minimum-character-count="8"
@@ -618,23 +618,25 @@
   class="btn-mktg signup-btn  js-octocaptcha-form-submit width-full"
   type="submit"
   height="64px"
-
     data-disable-invalid
       data-disable-with="Creating account&hellip;"
-
     disabled
-
-
-
     id="signup_button"
-
     data-ga-click="Signup funnel entrance, click, text: Select a plan;"
-
-
-
-
 >
   Register
+</button>
+<button
+  class="btn-mktg login-btn  js-octocaptcha-form-submit width-full"
+  type="submit"
+  height="64px"
+    data-disable-invalid
+      data-disable-with="Creating account&hellip;"
+    disabled
+    id="login_button"
+    data-ga-click="Login funnel entrance, click, text: Select a plan;"
+>
+  Login
 </button>
 
   </div>

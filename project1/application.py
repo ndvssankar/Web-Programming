@@ -29,6 +29,30 @@ def register_user(request):
     except:
         return False
 
+@app.route('/auth', methods=["GET"])
+def login():
+    req = request.form
+    if User.query.filter_by(req.get("username"), req.get("password")).count() == 1:
+        session["USERNAME"] = req.get("username")
+        return render_template("/user_profile")
+    else:
+        return render_template("/register", message="Invalid Login Credentials")
+
+@app.route('/user_profile', methods=["GET"])
+def user_profile():
+    if not session.get["USERNAME"] is None:
+        username = session.get("USERNAME")
+        return render_template("/user_profile.html", username=username)
+    else:
+        return render_template("/register")
+
+@app.route('/logout', methods=["GET"])
+def logout():
+    session = requests.session()
+    session["USERNAME"] = None
+    return render_template("/register", message="You have successfully logged out...")
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':

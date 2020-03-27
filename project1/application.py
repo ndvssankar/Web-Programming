@@ -10,11 +10,6 @@ app = Flask(__name__)
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
 
-# Configure session to use filesystem
-# app.config["SESSION_PERMANENT"] = False
-# app.config["SESSION_TYPE"] = "filesystem"
-# Session(app)
-
 app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://tgsemzadyezlgh:858baa7b0d8b5ce3cb37d6481e187d508a119f33d2f26a2addac896f186eb633@ec2-18-233-137-77.compute-1.amazonaws.com:5432/d389gkjdhv6oa2"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
@@ -25,14 +20,13 @@ def index():
 
 def register_user(request):
     req = request.form
-    cnt_users = User.query.filter_by(username = req.get("username")).count()
-    if cnt_users == 1:
-        return False
-    else:
+    try:
         newUser = User(req.get("username"), req.get("password"))
         db.session.add(newUser)
         db.session.commit()
         return True
+    except:
+        return False
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

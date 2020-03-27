@@ -23,6 +23,23 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+    <!-- added... -->
+    <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Siva Sankar</title>
+        <link
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous"
+        />
+          <script
+          src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+          integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+          crossorigin="anonymous"
+        ></script>
+
     <meta charset="utf-8">
   <link rel="dns-prefetch" href="https://github.githubassets.com">
   <link rel="dns-prefetch" href="https://avatars0.githubusercontent.com">
@@ -145,9 +162,22 @@
   </head>
 
   <body class="logged-out env-production page-responsive">
-    
-
-  <div class="position-relative js-header-wrapper ">
+    <!-- updated from here -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="index.html">Home</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+          
+          </div>
+      </div>
+  </nav>
+  <!-- upto here -->
+  
+  
+  <!-- <div class="position-relative js-header-wrapper ">
     <a href="#start-of-content" class="px-2 py-4 bg-blue text-white show-on-focus js-skip-to-content">Skip to content</a>
     <span class="Progress progress-pjax-loader position-fixed width-full js-pjax-loader-bar">
       <span class="progress-pjax-loader-bar top-0 left-0" style="width: 0%;"></span>
@@ -155,7 +185,7 @@
 
     
     
-<!-- 
+
 
         <div id="unsupported-browser" class="unsupported-browser" hidden>
   <div class="container-xl p-responsive clearfix d-flex flex-items-center py-2">
@@ -170,14 +200,13 @@
     </div>
   </div>
 </div>
- -->
+
 
 
         <header class="Header-old header-logged-out js-details-container Details position-relative f4 py-2" role="banner">
   <div class="container-xl d-lg-flex flex-items-center p-responsive">
     <div class="d-flex flex-justify-between flex-items-center">
         <a class="mr-4" href="/" aria-label="Homepage" data-ga-click="(Logged out) Header, go to homepage, icon:logo-wordmark">
-          <!-- <svg height="32" class="octicon octicon-mark-github text-white" viewBox="0 0 16 16" version="1.1" width="32" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> -->
           <svg width="32" height="32" viewBox="0 0 49 68" xmlns="http://www.w3.org/2000/svg"><title>Group 7 Copy 2</title><path d="M47.886 8.268v-.386c-.23-1.546-1.537-2.318-2.844-1.777-1.537.695-2.997 1.39-4.535 2.009-2.613 1.081-5.15 2.24-7.84 3.322-1.69.696-3.382 1.546-5.073 2.241-2.536 1.082-5.073 2.164-7.686 3.246-1.307.54-2.614 1.236-3.92 1.7-1.922.695-3.844.772-5.842.463-1.922-.309-3.766-.695-5.534-1.854 1.307-.541 2.613-1.082 3.843-1.7 3.843-1.7 7.763-3.323 11.53-5.023C23.29 9.041 26.518 7.65 29.9 6.182c.538-.232 1-.618 1.691-.31a34.31 34.31 0 0 0 3.382 1.469V2.009c0-1.236-1.383-2.164-2.536-1.777-1.23.463-2.383 1.082-3.536 1.545-2.537 1.005-4.996 2.164-7.456 3.246-1.691.695-3.382 1.468-5.073 2.24-2.46 1.082-4.92 2.087-7.456 3.169-1.768.773-3.536 1.468-5.227 2.24-1.844.85-3.382 2.164-3.382 4.792.077 14.45 0 28.977 0 43.427a3.7 3.7 0 0 0 .308 1.545c.692 1.932 2.229 2.937 3.997 3.632 1.921.773 3.843 1.237 5.918 1.468 2.076.232 4.074.155 6.073-.463 2.92-.928 5.61-2.396 8.531-3.555 2.153-.927 4.305-1.932 6.38-2.859a756.083 756.083 0 0 0 8.84-3.786c2.075-.928 4.15-1.855 6.226-2.705.922-.386 1.537-1.236 1.537-2.24-.23-14.373-.23-28.978-.23-43.66zM31.9 50.15s-10.454-3.245-10.454-11.9c0-8.655 7.456-13.214 10.223-7.264 0 0 2.383-7.804 7.302-6.645 4.996.927 4.227 12.827-7.071 25.809z" fill="#B9AD99" fill-rule="evenodd"/></svg>
         </a>
 
@@ -187,7 +216,6 @@
           </div>
 
         <div class="d-flex flex-items-center">
-            <!-- <a href="/join?source=header" -->
             <a href="/register"
               class="d-inline-block d-lg-none f5 text-white no-underline border border-gray-dark rounded-2 px-2 py-1 mr-3 mr-sm-5"
               data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/join?source=header-home&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="26d202c79d1d0f5b1e6193571daf5347af1ff6e098564951a7daf2cd3227d5ac"
@@ -209,7 +237,7 @@
       </div>
 
         <nav class="mt-0 px-3 px-lg-0 mb-5 mb-lg-0" aria-label="Global">
-          <!-- <ul class="d-lg-flex list-style-none">
+          <ul class="d-lg-flex list-style-none">
               <li class="d-block d-lg-flex flex-lg-nowrap flex-lg-items-center border-bottom border-lg-bottom-0 mr-0 mr-lg-3 edge-item-fix position-relative flex-wrap flex-justify-between d-flex flex-items-center ">
                 <details class="HeaderMenu-details details-overlay details-reset width-full">
                   <summary class="HeaderMenu-summary HeaderMenu-link px-0 py-3 border-0 no-wrap d-block d-lg-inline-block">
@@ -303,7 +331,7 @@
                   </div>
                 </details>
               </li>
-          </ul> -->
+          </ul>
         </nav>
 
       <div class="d-lg-flex flex-items-center px-3 px-lg-0 text-center text-lg-left">
@@ -316,7 +344,7 @@
   aria-expanded="false"
 >
   <div class="position-relative">
-    <!-- '"` --><!-- </textarea></xmp> --></option></form><form class="js-site-search-form" role="search" aria-label="Site" data-unscoped-search-url="/search" action="/search" accept-charset="UTF-8" method="get">
+    </textarea></xmp></option></form><form class="js-site-search-form" role="search" aria-label="Site" data-unscoped-search-url="/search" action="/search" accept-charset="UTF-8" method="get">
       <label class="form-control input-sm header-search-wrapper p-0 header-search-wrapper-jump-to position-relative d-flex flex-justify-between flex-items-center js-chromeless-input-container">
         <input type="text"
           class="form-control input-sm header-search-input jump-to-field js-jump-to-field js-site-search-focus "
@@ -456,12 +484,12 @@
 
           </div>
 
-        <!-- <a href="/login?return_to=%2Fjoin%3Fsource%3Dheader-home"
+        <a href="/login?return_to=%2Fjoin%3Fsource%3Dheader-home"
           class="HeaderMenu-link no-underline mr-3"
           data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/join?source=header-home&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="4162ee8c3289191650555b33b14b28add5002451e4ed34b94a7a5bc7c4a828e3"
           data-ga-click="(Logged out) Header, clicked Sign in, text:sign-in">
           Sign&nbsp;in
-        </a> -->
+        </a>
           <a href="/register"
             class="HeaderMenu-link d-inline-block no-underline border border-gray-dark rounded-1 px-2 py-1"
             data-hydro-click="{&quot;event_type&quot;:&quot;authentication.click&quot;,&quot;payload&quot;:{&quot;location_in_page&quot;:&quot;site header menu&quot;,&quot;repository_id&quot;:null,&quot;auth_type&quot;:&quot;SIGN_UP&quot;,&quot;originating_url&quot;:&quot;https://github.com/join?source=header-home&quot;,&quot;user_id&quot;:null}}" data-hydro-click-hmac="4162ee8c3289191650555b33b14b28add5002451e4ed34b94a7a5bc7c4a828e3"
@@ -491,7 +519,7 @@
 
   <div class="application-main " data-commit-hovercards-enabled>
         <main>
-
+ -->
 
 
 
@@ -516,12 +544,12 @@
 <!-- '"` --><!-- </textarea></xmp> --></option></form><form autocomplete="off" id="signup-form" class="setup-form js-signup-form js-octocaptcha-parent" action="/register" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="nCo8K2Qd58Brh8FOr3aYtG9Hz5fDtLcSG+nBAd27EVlsi7mj/dhII8ek3UFufzyxqyvUgSbApUHH0qrGUPuOpw==" />
 
   <!-- <auto-check src="/signup_check/username?suggest_usernames=true" required> -->
-    <dl class="form-group my-3 required"><dt class="input-label"><label name="user[login]" autocapitalize="off" autofocus="autofocus" required="required" for="user_login">Username</label></dt><dd><input name="user[login]" autocapitalize="off" autofocus="autofocus" required="required" class="form-control input py-1" type="text" id="user_login" /></dd></dl>
+    <dl class="form-group my-3 required"><dt class="input-label"><label name="user[login]" autocapitalize="off" autofocus="autofocus" required="required" for="user_login">Username</label></dt><dd><input name="username" autocapitalize="off" autofocus="autofocus" required="required" class="form-control input py-1" type="text" id="user_login" /></dd></dl>
     <input type="hidden" data-csrf="true" value="LFbHsBGKziPcRp9JkYbxgQec+8LWTZ1UHGI5mOgOkSdi+JOEcMLwfoPilRkJprWqIogKzf+tsyND/yT7h9mHiQ==" />
   <!-- </auto-check> -->
 
   <!-- <auto-check src="/signup_check/email" required> -->
-    <dl class="form-group my-3 required"><dt class="input-label"><label name="user[email]" autocapitalize="off" required="required" for="user_email">Email address</label></dt><dd><input name="user[email]" autocapitalize="off" required="required" class="form-control input py-1" value="" type="text" id="user_email" /></dd></dl>
+    <dl class="form-group my-3 required"><dt class="input-label"><label name="user[email]" autocapitalize="off" required="required" for="user_email">Email address</label></dt><dd><input name="email" autocapitalize="off" required="required" class="form-control input py-1" value="" type="text" id="user_email" /></dd></dl>
     <input type="hidden" data-csrf="true" value="7zJLWahXd79seShhe+tFUTreirhkeN4HsAi/8B7QQgMwkOy6TkpaK8hplcNqOW6CXPUXRxPemGUFMk5GhFSv/g==" />
   <!-- </auto-check> -->
 
@@ -532,7 +560,7 @@
     error-class="text-red text-bold"
     pass-class="text-green"
   >
-    <dl class="form-group mt-3 mb-2 required"><dt class="input-label"><label name="user[password]" required="required" for="user_password">Password</label></dt><dd><input name="user[password]" required="required" class="form-control input py-1 " type="password" id="user_password" /></dd></dl>
+    <dl class="form-group mt-3 mb-2 required"><dt class="input-label"><label name="user[password]" required="required" for="user_password">Password</label></dt><dd><input name="password" required="required" class="form-control input py-1 " type="password" id="user_password" /></dd></dl>
     <p class="note mb-3">Make sure it&#39;s <span data-more-than-n-chars="">at least 15 characters</span> OR <span data-min-chars="">at least 8 characters</span> <span data-number-requirement="">including a number</span> <span data-letter-requirement="">and a lowercase letter</span>. <a href="https://help.github.com/articles/creating-a-strong-password" class="tooltipped tooltipped-s" aria-label="Learn more about strong passwords">Learn more</a>.</p>
   </password-strength>
 

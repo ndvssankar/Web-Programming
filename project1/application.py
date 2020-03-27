@@ -1,13 +1,13 @@
 import os
 from flask import Flask, request, render_template, redirect
-from flask import url_for
+from flask import url_for, session, flash
 from models import *
 from datetime import datetime
 from sqlalchemy import and_
 from models import User
 
 app = Flask(__name__)
-
+app.secret_key = 'anyrandomstring'
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
@@ -33,16 +33,17 @@ def register_user(request):
 
 @app.route('/logout', methods=["GET"])
 def logout():
-    # session = requests.session()
-    # session["USERNAME"] = None
-    return render_template("register", message="You have successfully logged out...")
+    session["USERNAME"] = None
+    return redirect(url_for("register"))
 
 @app.route('/user_profile', methods=["GET"])
 def user_profile():
-    # session = requests.session()
-    # if not session.get["USERNAME"] is None:
-    # username = session.get("USERNAME")
-    return render_template("/user_profile.html")
+    if not session["USERNAME"] is None:
+        username = session["USERNAME"]
+        return render_template("/user_profile.html", username=username)
+    else:
+        flash("Your session is closed.. Please login again")
+        return redirect(url_for("register"))
 
 @app.route('/auth', methods=["POST"])
 def login():
@@ -51,11 +52,11 @@ def login():
     password = req.get("password")
     users = User.query.filter(and_(User.username==username, User.password==password)).all()
     if len(users) == 1:
-        # session["USERNAME"] = req.get("username")
+        session["USERNAME"] = req.get("username")
         return redirect(url_for("user_profile"))
     else:
-        return render_template("/register", message="Invalid Login Credentials")
-
+        flash("Invalid username or password")
+        return redirect(url_for("register"))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

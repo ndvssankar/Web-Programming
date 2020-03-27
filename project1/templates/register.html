@@ -541,9 +541,30 @@
 
       
 
-<!-- '"` --><!-- </textarea></xmp> --></option></form><form autocomplete="off" id="signup-form" class="setup-form js-signup-form js-octocaptcha-parent" action="" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="nCo8K2Qd58Brh8FOr3aYtG9Hz5fDtLcSG+nBAd27EVlsi7mj/dhII8ek3UFufzyxqyvUgSbApUHH0qrGUPuOpw==" />
+<!-- '"` --><!-- </textarea></xmp> --></option></form>
+{% with messages = get_flashed_messages() %}
+      {% if messages %}
+<div id="js-flash-container">
+  <div class="flash flash-full flash-error">
+    <div class="container-sm px-1" >
+      <button class="flash-close js-flash-close" type="button" aria-label="Dismiss this message">
+        <svg class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="12" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"></path></svg>
+      </button>
+    
+      <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+</div>
+</div>
+</div>
+{% endif %}
+    {% endwith %}
 
+<form autocomplete="off" id="signup-form" class="setup-form js-signup-form js-octocaptcha-parent" accept-charset="UTF-8" method="post"><input type="hidden" data-csrf="true" name="authenticity_token" value="nCo8K2Qd58Brh8FOr3aYtG9Hz5fDtLcSG+nBAd27EVlsi7mj/dhII8ek3UFufzyxqyvUgSbApUHH0qrGUPuOpw==" />
   <!-- <auto-check src="/signup_check/username?suggest_usernames=true" required> -->
+
     <dl class="form-group my-3 required"><dt class="input-label"><label name="user[login]" autocapitalize="off" autofocus="autofocus" required="required" for="user_login">Username</label></dt><dd><input name="username" autocapitalize="off" autofocus="autofocus" required="required" class="form-control input py-1" type="text" id="user_login" /></dd></dl>
     <input type="hidden" data-csrf="true" value="LFbHsBGKziPcRp9JkYbxgQec+8LWTZ1UHGI5mOgOkSdi+JOEcMLwfoPilRkJprWqIogKzf+tsyND/yT7h9mHiQ==" />
   <!-- </auto-check> -->
@@ -615,7 +636,7 @@
     
 
 <button
-  class="btn-mktg signup-btn  js-octocaptcha-form-submit width-full"
+  class="btn-mktg signup-btn  js-octocaptcha-form-submit width-fit"
   type="submit"
   formaction="/register"
   height="64px"
@@ -628,7 +649,7 @@
   Register
 </button>
 <button
-  class="btn-mktg login-btn  js-octocaptcha-form-submit width-full"
+  class="btn-mktg login-btn  js-octocaptcha-form-submit width-fit"
   type="submit"
   formaction="auth"
   height="64px"

@@ -8,7 +8,6 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://tgsemzadyezlgh:858baa7b0d8b5
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
-
 def main():
     # user = User(username="Siva", password="sankar", user_created_on=datetime.now())
     # db.session.add(user)

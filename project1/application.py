@@ -4,7 +4,6 @@ from flask import url_for, session, flash
 from models import *
 from datetime import datetime
 from sqlalchemy import and_
-from models import User
 
 app = Flask(__name__)
 app.secret_key = 'anyrandomstring'
@@ -19,6 +18,7 @@ db.init_app(app)
 
 @app.route("/")
 def index():
+    Book.__table__.drop()
     return "Project 1: TODO"
 
 def register_user(request):

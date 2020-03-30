@@ -1,11 +1,12 @@
 import os
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
+from flask import url_for, session, flash
 from models import *
 from datetime import datetime
-from models import User
+from sqlalchemy import and_
 
 app = Flask(__name__)
-
+app.secret_key = 'anyrandomstring'
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
@@ -17,6 +18,7 @@ db.init_app(app)
 
 @app.route("/")
 def index():
+    Book.__table__.drop()
     return "Project 1: TODO"
 
 def register_user(request):
@@ -28,6 +30,33 @@ def register_user(request):
         return True
     except:
         return False
+
+@app.route('/logout', methods=["GET"])
+def logout():
+    session["USERNAME"] = None
+    return redirect(url_for("register"))
+
+@app.route('/user_profile', methods=["GET"])
+def user_profile():
+    if not session["USERNAME"] is None:
+        username = session["USERNAME"]
+        return render_template("/user_profile.html", username=username)
+    else:
+        flash("Your session is closed.. Please login again")
+        return redirect(url_for("register"))
+
+@app.route('/auth', methods=["POST"])
+def login():
+    req = request.form
+    username = req.get("username")
+    password = req.get("password")
+    users = User.query.filter(and_(User.username==username, User.password==password)).all()
+    if len(users) == 1:
+        session["USERNAME"] = req.get("username")
+        return redirect(url_for("user_profile"))
+    else:
+        flash("Invalid username or password")
+        return redirect(url_for("register"))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

@@ -6,9 +6,6 @@ import log
 
 app = Flask(__name__)
 
-# Configuring the file for logging.
-# fileConfig('logging.cfg')
-
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")

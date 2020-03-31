@@ -18,7 +18,7 @@ db.init_app(app)
 
 @app.route("/")
 def index():
-    Book.__table__.drop()
+    # Book.__table__.drop()
     return "Project 1: TODO"
 
 def register_user(request):
@@ -73,3 +73,18 @@ def register():
 def list_users():
     users = User.query.order_by(User.user_created_on.desc())
     return render_template("list_users.html", users=users)
+
+
+@app.route("/search", methods=["POST"])
+def search():
+    if request.method == 'POST':
+        req = request.form
+        searchWord = req.get('searchword')
+        print("jk"+searchWord)
+        books = Book.query.filter(Book.title==searchWord).all()
+        if(len(books)==0):
+            return render_template("user_profile.html", message="no results found")
+        else:
+            return render_template("user_profile.html", result = books)
+
+

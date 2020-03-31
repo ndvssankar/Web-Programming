@@ -20,7 +20,7 @@ class Book(db.Model):
     isbn = db.Column(db.String, primary_key = True)
     title = db.Column(db.String, nullable = False)
     author = db.Column(db.String, nullable = False)
-    year = db.Column(db.Integer, nullable = False)
+    year = db.Column(db.String, nullable = False)
 
     def __init__(self, isbn, title, author, year):
         self.isbn = isbn

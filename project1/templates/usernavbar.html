@@ -5,7 +5,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-        
+
         </div>
     </div>
     <a href="/logout"
@@ -14,4 +14,11 @@
         data-ga-click="(Logged out) Header, clicked Sign up, text:sign-up">
         Sign&nbsp;out
     </a>
+
+     <form action="/search" method="post">
+    <div class="form-group">
+      <input type="text" class="form-control" name="searchword" placeholder="Enter book, author or isbn">
+    </div>
+    <button type="submit" class="btn btn-default">Search</button>
+  </form>>
 </nav>

@@ -4,6 +4,7 @@ from flask import Flask, request, render_template
 from models import *
 import log
 
+
 app = Flask(__name__)
 
 # Check for environment variable
@@ -25,20 +26,20 @@ def store_in_db(reader):
     for isbn, title, author, year in reader:
         c += 1
         app.logger.info('%d %s %s %s %s', c, isbn, title, author, year)
-        books.append(Book(isbn=isbn, title=title, author=author,year=int(year)))
-        try:
-            if len(books) == 100:
-                db.session.add_all(books)
-                db.session.flush()
-                db.session.commit()
-                books = []
-        except SQLAlchemyError as e:
-            error = str(e.__dict__['orig'])
-            app.logger.error("%s", error)
+        books.append(Book(isbn=isbn, title=title, author=author,year=year))
+
+        if len(books) == 100:
+            db.session.add_all(books)
+            db.session.flush()
+            db.session.commit()
+            books = []
+        # except SQLAlchemyError as e:
+        #     error = str(e.__dict__['orig'])
+        #     app.logger.error("%s", error)
 
 def main():
     store_in_db(load_data_from_csv("books.csv"))
-    
+
 if __name__ == "__main__":
     with app.app_context():
         main()

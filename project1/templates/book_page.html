@@ -1,0 +1,53 @@
+<html>
+    <head>
+        {% include 'scripts.html' %}
+    </head>
+    <body>
+        {% include 'usernavbar.html' %}
+        </br>
+        {% with messages = get_flashed_messages() %}
+      {% if messages %}
+<div id="js-flash-container">
+  <div class="flash flash-full flash-error">
+    <div class="container-sm px-1" >
+      <button class="flash-close js-flash-close" type="button" aria-label="Dismiss this message">
+        <svg class="octicon octicon-x" viewBox="0 0 12 16" version="1.1" width="12" height="12" aria-hidden="true"><path fill-rule="evenodd" d="M7.48 8l3.75 3.75-1.48 1.48L6 9.48l-3.75 3.75-1.48-1.48L4.52 8 .77 4.25l1.48-1.48L6 6.52l3.75-3.75 1.48 1.48L7.48 8z"></path></svg>
+      </button>
+    
+      <ul class=flashes>
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+      </ul>
+</div>
+</div>
+</div>
+{% endif %}
+    {% endwith %}
+        <table class="table">
+          <thead class="thead-dark">
+              <tr>
+                <th scope="col" colspan=2>Details of the book that you have selected are as follows:</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">ISBN Number</th>
+                <td> {{ book.isbn }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Title of the book</th>
+                <td>{{ book.title }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Author of the book</th>
+                <td>{{ book.author }}</td>
+              </tr>
+              <tr>
+                <th scope="row">Publication year</th>
+                <td>{{ book.year }}</td>
+              </tr>
+            </tbody>
+          </table>
+    </body>
+</html>

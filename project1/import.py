@@ -1,5 +1,6 @@
 import os
 import csv
+from sqlalchemy import *
 from flask import Flask, request, render_template
 from models import *
 import log
@@ -25,14 +26,14 @@ def store_in_db(reader):
     for isbn, title, author, year in reader:
         c += 1
         app.logger.info('%d %s %s %s %s', c, isbn, title, author, year)
-        books.append(Book(isbn=isbn, title=title, author=author,year=int(year)))
+        books.append(Book(isbn=isbn, title=title, author=author,year=year))
         try:
             if len(books) == 100:
                 db.session.add_all(books)
                 db.session.flush()
                 db.session.commit()
                 books = []
-        except SQLAlchemyError as e:
+        except Exception as e:
             error = str(e.__dict__['orig'])
             app.logger.error("%s", error)
 

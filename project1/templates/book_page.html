@@ -22,9 +22,8 @@
 </div>
 </div>
 </div>
-{% endif %}
-    {% endwith %}
-        <table class="table">
+{% else %}
+      <table class="table">
           <thead class="thead-dark">
               <tr>
                 <th scope="col" colspan=2>Details of the book that you have selected are as follows:</th>
@@ -49,5 +48,7 @@
               </tr>
             </tbody>
           </table>
+      {% endif %}
+      {% endwith %}
     </body>
 </html>

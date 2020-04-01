@@ -4,6 +4,7 @@ from flask import url_for, session, flash
 from models import *
 from datetime import datetime
 from sqlalchemy import and_
+from book_details import get_book_details
 
 app = Flask(__name__)
 app.secret_key = 'anyrandomstring'
@@ -18,9 +19,6 @@ db.init_app(app)
 
 @app.route("/")
 def index():
-    # Book.__table__.drop()
-    # books = Book.query.filter().all()
-    # print(len(books))
     return "Project 1: TODO"
 
 def register_user(request):
@@ -58,12 +56,12 @@ def book_page():
         flash("Your session is closed.. Please login again")
         return redirect(url_for("register"))
     else:
-        book = Book.query.filter_by(isbn=isbn_number).all()
-        if len(isbn_number) == 0 or len(book) == 1:
+        book = get_book_details(isbn_number)
+        if book is None:
             flash("Invalid ISBN Number")
             return render_template("book_page.html", book=None)
         else:
-            return render_template("book_page.html", book=book[0])
+            return render_template("book_page.html", book=book)
 
 @app.route('/auth', methods=["POST"])
 def login():
@@ -93,3 +91,4 @@ def register():
 def list_users():
     users = User.query.order_by(User.user_created_on.desc())
     return render_template("list_users.html", users=users)
+

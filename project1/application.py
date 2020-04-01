@@ -1,6 +1,6 @@
 import os
 from flask import Flask, request, render_template, redirect
-from flask import url_for, session, flash
+from flask import url_for, session, flash, jsonify
 from models import *
 from datetime import datetime
 from sqlalchemy import and_
@@ -92,3 +92,16 @@ def list_users():
     users = User.query.order_by(User.user_created_on.desc())
     return render_template("list_users.html", users=users)
 
+@app.route("/api/book/<isbn_number>")
+def book_details_web_api(isbn_number):
+    print("here...... ndv ... isbn:", isbn_number)
+    book = get_book_details(isbn_number)
+    if book is None:
+        return jsonify({"Error":"Invalid ISBN number"}), 422
+    elif book:
+        return jsonify({"ISBN" : book.isbn,
+            "Title": book.title,
+            "Author" : book.author,
+            "year" : int(book.year)}), 200
+    else:
+        return jsonify({"Error" : "Server not ready to serve api requestss"}), 500

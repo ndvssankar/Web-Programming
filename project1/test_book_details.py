@@ -1,15 +1,14 @@
 # project/test_book_page.py
 # reference from: https://www.patricksoftwareblog.com/unit-testing-a-flask-application/
- 
+
 import unittest
-from models import Book
+from init_app import testing_app
 from book_details import get_book_details
 
-  
 class TestStringMethods(unittest.TestCase): 
-      
+
     def setUp(self):
-        pass
+        testing_app()
 
     # Returns True or False.  
     def test(self):         

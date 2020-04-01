@@ -4,6 +4,8 @@ from flask import url_for, session, flash
 from models import *
 from datetime import datetime
 from sqlalchemy import and_
+from sqlalchemy import or_
+
 
 app = Flask(__name__)
 app.secret_key = 'anyrandomstring'
@@ -80,8 +82,14 @@ def search():
     if request.method == 'POST':
         req = request.form
         searchWord = req.get('searchword')
-        print("jk"+searchWord)
-        books = Book.query.filter(Book.title==searchWord).all()
+        print("Srch---"+searchWord)
+        books = Book.query.filter(or_(Book.title==searchWord, Book.author==searchWord)).all()
+        book3 = Book.query.filter(or_(Book.title.like(f'%{searchWord}'),
+                                            Book.author.like(searchWord))).all()
+        book2 = db.session.query(Book).filter(or_(Book.title.like(f'%{searchWord}'),
+                                            Book.author.like(searchWord))).all()
+        print(len(book3))
+        print(len(book2))
         if(len(books)==0):
             return render_template("user_profile.html", message="no results found")
         else:

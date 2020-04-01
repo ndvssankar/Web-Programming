@@ -15,7 +15,7 @@
             </tr>
          {% for res in result %}
             <tr>
-               <td> {{ res.title }} </td>
+              <td><a href="{{ ''.join(['/books?isbn=', res.isbn])}}">{{ res.title }}</a></td>
             </tr>
          {% endfor %}
       </table>

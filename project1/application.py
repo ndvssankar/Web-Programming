@@ -83,7 +83,8 @@ def search():
         req = request.form
         searchWord = req.get('searchword')
         print("Srch---"+searchWord)
-        books = Book.query.filter(or_(Book.title==searchWord, Book.author==searchWord)).all()
+        books = Book.query.filter(or_(Book.title==searchWord, Book.author==searchWord, Book.year==searchWord,Book.isbn==searchWord)).all()
+
         book3 = Book.query.filter(or_(Book.title.like(f'%{searchWord}'),
                                             Book.author.like(searchWord))).all()
         book2 = db.session.query(Book).filter(or_(Book.title.like(f'%{searchWord}'),

@@ -1,19 +1,12 @@
 import os
 import csv
-from flask import Flask, request, render_template
+import time
 from models import *
 import log
+from init_app import initialize_testing_app
 
-
-app = Flask(__name__)
-
-# Check for environment variable
-if not os.getenv("DATABASE_URL"):
-    raise RuntimeError("DATABASE_URL is not set")
-
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db.init_app(app)
+app = initialize_testing_app()
+db.create_all()
 
 def load_data_from_csv(file_name):
     f = open(file_name)
@@ -27,19 +20,24 @@ def store_in_db(reader):
         c += 1
         app.logger.info('%d %s %s %s %s', c, isbn, title, author, year)
         books.append(Book(isbn=isbn, title=title, author=author,year=year))
-
-        if len(books) == 100:
-            db.session.add_all(books)
-            db.session.flush()
-            db.session.commit()
-            books = []
-        # except SQLAlchemyError as e:
-        #     error = str(e.__dict__['orig'])
-        #     app.logger.error("%s", error)
+        try:
+            if len(books) == 100:
+                db.session.add_all(books)
+                db.session.flush()
+                db.session.commit()
+                books = []
+        except Exception as e:
+            error = str(e.__dict__['orig'])
+            app.logger.error("%s", error)
 
 def main():
     store_in_db(load_data_from_csv("books.csv"))
 
 if __name__ == "__main__":
     with app.app_context():
+        # Book.__table__.drop()
+        # User.__table__.drop()
+        # db.drop_all()
+        # db.session.flush()
+        # db.session.commit()
         main()

@@ -1,24 +1,19 @@
 import os
 from flask import Flask, request, render_template, redirect
-from flask import url_for, session, flash
+from flask import url_for, session, flash, jsonify
 from models import *
 from datetime import datetime
 from sqlalchemy import and_
+from book_details import get_book_details
+from init_app import initialize_production_app
 
-app = Flask(__name__)
-app.secret_key = 'anyrandomstring'
-# Check for environment variable
-if not os.getenv("DATABASE_URL"):
-    raise RuntimeError("DATABASE_URL is not set")
-
-# app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://tgsemzadyezlgh:858baa7b0d8b5ce3cb37d6481e187d508a119f33d2f26a2addac896f186eb633@ec2-18-233-137-77.compute-1.amazonaws.com:5432/d389gkjdhv6oa2"
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
-app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-db.init_app(app)
+try:
+    app = initialize_production_app()
+except Exception as e:
+    print("Error: Check for Database url with respect to configurations...")
 
 @app.route("/")
 def index():
-    Book.__table__.drop()
     return "Project 1: TODO"
 
 def register_user(request):
@@ -34,6 +29,7 @@ def register_user(request):
 @app.route('/logout', methods=["GET"])
 def logout():
     session["USERNAME"] = None
+    flash("User successfully logout")
     return redirect(url_for("register"))
 
 @app.route('/user_profile', methods=["GET"])
@@ -44,6 +40,23 @@ def user_profile():
     else:
         flash("Your session is closed.. Please login again")
         return redirect(url_for("register"))
+
+@app.route('/book_page', methods=["GET"])
+def book_page():
+    # isbn_number = request.form["isbn_number"]
+    isbn_number = "1416949658"
+    # username = request.session["USERNAME"]
+    username = "vamsi"
+    if not username:
+        flash("Your session is closed.. Please login again")
+        return redirect(url_for("register"))
+    else:
+        book = get_book_details(isbn_number)
+        if book is None:
+            flash("Invalid ISBN Number")
+            return render_template("book_page.html", book=None)
+        else:
+            return render_template("book_page.html", book=book)
 
 @app.route('/auth', methods=["POST"])
 def login():
@@ -73,3 +86,17 @@ def register():
 def list_users():
     users = User.query.order_by(User.user_created_on.desc())
     return render_template("list_users.html", users=users)
+
+@app.route("/api/book/<isbn_number>")
+def book_details_web_api(isbn_number):
+    print("here...... ndv ... isbn:", isbn_number)
+    book = get_book_details(isbn_number)
+    if book is None:
+        return jsonify({"Error":"Invalid ISBN number"}), 422
+    elif book:
+        return jsonify({"ISBN" : book.isbn,
+            "Title": book.title,
+            "Author" : book.author,
+            "year" : int(book.year)}), 200
+    else:
+        return jsonify({"Error" : "Server not ready to serve api requestss"}), 500

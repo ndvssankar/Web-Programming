@@ -1,4 +1,5 @@
 import os
+
 from flask import Flask, request, render_template, redirect
 from flask import url_for, session, flash, jsonify
 from models import *
@@ -6,6 +7,10 @@ from datetime import datetime
 from sqlalchemy import and_
 from book_details import get_book_details
 from init_app import initialize_production_app
+from sqlalchemy import or_
+import search
+
+
 
 try:
     app = initialize_production_app()
@@ -86,6 +91,42 @@ def register():
 def list_users():
     users = User.query.order_by(User.user_created_on.desc())
     return render_template("list_users.html", users=users)
+
+
+@app.route("/search", methods=["POST"])
+def search():
+    if request.method == 'POST':
+        req = request.form
+        searchWord = req.get('searchword')
+        # print("Srch---"+searchWord)
+        # books = Book.query.filter(or_(Book.title==searchWord, Book.author==searchWord, Book.year==searchWord,Book.isbn==searchWord)).all()
+        books = search.get_books(searchWord)
+        if(len(books)==0):
+            return render_template("user_profile.html", message="no results found")
+        else:
+            return render_template("user_profile.html", result = books)
+
+
+
+@app.route('/api/search/', methods=["POST"])
+def api_books():
+    content= request.get_json()
+    if 'type' in content and 'query' in content:
+        search_query= content['type'].strip()
+        books= search.get_books(search_query)
+        if(len(books)==0):
+            return jsonify({"Error":"No Match Found"}), 422
+        else:
+            l=[]
+            books_json={}
+            for each in books:
+                d={}
+                d["isbn"]=each.isbn
+                l.append(d)
+            books_json['books']=l
+            return jsonify(books_json)
+    else:
+        eturn jsonify({"Error":"invalid search query"}), 422
 
 @app.route("/api/book/<isbn_number>")
 def book_details_web_api(isbn_number):

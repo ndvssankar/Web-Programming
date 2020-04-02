@@ -7,5 +7,17 @@
         </br>
         <h1>{{ username }}</h1>
         <h1>User home page under construction</h1>
+        <h1> Search Results</h1>
+        <p>{{ message }}</p>
+            <table border = 1>
+      	<tr>
+               <th> title</th>
+            </tr>
+         {% for res in result %}
+            <tr>
+              <td><a href="{{ ''.join(['/books?isbn=', res.isbn])}}">{{ res.title }}</a></td>
+            </tr>
+         {% endfor %}
+      </table>
     </body>
 </html>

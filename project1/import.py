@@ -20,7 +20,6 @@ def store_in_db(reader):
         c += 1
         app.logger.info('%d %s %s %s %s', c, isbn, title, author, year)
         books.append(Book(isbn=isbn, title=title, author=author,year=year))
-
         try:
             if len(books) == 100:
                 db.session.add_all(books)
@@ -33,7 +32,7 @@ def store_in_db(reader):
 
 def main():
     store_in_db(load_data_from_csv("books.csv"))
-    
+
 if __name__ == "__main__":
     with app.app_context():
         # Book.__table__.drop()

@@ -1,5 +1,5 @@
 import os
-
+import search
 from flask import Flask, request, render_template, redirect
 from flask import url_for, session, flash, jsonify
 from models import *
@@ -8,7 +8,6 @@ from sqlalchemy import and_
 from book_details import get_book_details
 from init_app import initialize_production_app
 from sqlalchemy import or_
-import search
 
 
 
@@ -37,11 +36,11 @@ def logout():
     flash("User successfully logout")
     return redirect(url_for("register"))
 
-@app.route('/user_profile', methods=["GET"])
-def user_profile():
+@app.route('/user_home', methods=["GET"])
+def user_home():
     if not session["USERNAME"] is None:
         username = session["USERNAME"]
-        return render_template("/user_profile.html", username=username)
+        return render_template("/user_home.html", username=username)
     else:
         flash("Your session is closed.. Please login again")
         return redirect(url_for("register"))
@@ -126,7 +125,7 @@ def api_books():
             books_json['books']=l
             return jsonify(books_json)
     else:
-        eturn jsonify({"Error":"invalid search query"}), 422
+        return jsonify({"Error":"invalid search query"}), 422
 
 @app.route("/api/book/<isbn_number>")
 def book_details_web_api(isbn_number):

@@ -1,11 +1,11 @@
 import os
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, jsonify
 from flask import url_for, session, flash
 from models import *
 from datetime import datetime
 from sqlalchemy import and_
 from sqlalchemy import or_
-
+import search
 
 app = Flask(__name__)
 app.secret_key = 'anyrandomstring'
@@ -82,18 +82,35 @@ def search():
     if request.method == 'POST':
         req = request.form
         searchWord = req.get('searchword')
-        print("Srch---"+searchWord)
-        books = Book.query.filter(or_(Book.title==searchWord, Book.author==searchWord, Book.year==searchWord,Book.isbn==searchWord)).all()
-
-        book3 = Book.query.filter(or_(Book.title.like(f'%{searchWord}'),
-                                            Book.author.like(searchWord))).all()
-        book2 = db.session.query(Book).filter(or_(Book.title.like(f'%{searchWord}'),
-                                            Book.author.like(searchWord))).all()
-        print(len(book3))
-        print(len(book2))
+        # print("Srch---"+searchWord)
+        # books = Book.query.filter(or_(Book.title==searchWord, Book.author==searchWord, Book.year==searchWord,Book.isbn==searchWord)).all()
+        books = search.get_books(searchWord)
         if(len(books)==0):
             return render_template("user_profile.html", message="no results found")
         else:
             return render_template("user_profile.html", result = books)
+
+
+
+@app.route('/api/search/', methods=["POST"])
+def api_books():
+    content= request.get_json()
+    if 'type' in content and 'query' in content:
+        search_query= content['type'].strip()
+        books= search.get_books(search_query)
+        if(len(books)==0):
+            return jsonify({"Error":"No Match Found"}), 422
+        else:
+            l=[]
+            books_json={}
+            for each in books:
+                d={}
+                d["isbn"]=each.isbn
+                l.append(d)
+            books_json['books']=l
+            return jsonify(books_json)
+    else:
+        eturn jsonify({"Error":"invalid search query"}), 422
+
 
 

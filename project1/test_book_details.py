@@ -2,23 +2,11 @@
 # reference from: https://www.patricksoftwareblog.com/unit-testing-a-flask-application/
 
 import unittest
-from init_app import testing_app
+from BaseTest import BaseTest
 from book_details import get_book_details
 
-class TestStringMethods(unittest.TestCase): 
+class Test_Book(BaseTest): 
 
-    def setUp(self):
-        testing_app()
-
-    # Returns True or False.  
-    def test(self):         
-        self.assertTrue(True) 
-  
-    # executed after each test
-    def tearDown(self):
-        pass
- 
- 
     ###############
     #### tests ####
     ###############

@@ -5,7 +5,7 @@ import unittest
 from BaseTest import BaseTest
 from book import get_book_details
 
-class Test_Book(BaseTest): 
+class TestBook(BaseTest): 
 
     ###############
     #### tests ####

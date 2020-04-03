@@ -32,8 +32,6 @@ def store_in_db(reader):
 
 def main():
     store_in_db(load_data_from_csv("users.csv"))
-    # users = User.query.filter().all()
-    # print(len(users))
 
 if __name__ == "__main__":
     with app.app_context():

@@ -10,7 +10,6 @@ class User(db.Model):
     user_created_on = db.Column(db.DateTime, nullable = False)
 
     def __init__(self, username, password, user_created_on=None):
-        print("Hello...")
         self.username = username
         self.password = password
         self.user_created_on = datetime.now()

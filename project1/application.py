@@ -68,9 +68,9 @@ def login():
     username = req.get("username")
     password = req.get("password")
 
-    if username == None:
+    if username == None or len(username) == 0:
         return render_page()
-    if password == None:
+    if password == None or len(password) == 0:
         return render_page()
     
     flag = get_user_details(username, password)

@@ -41,10 +41,12 @@ def user_home():
 
 @app.route('/book_page', methods=["GET"])
 def book_page():
-    # isbn_number = request.form["isbn_number"]
-    isbn_number = "1416949658"
+    isbn_number = request.form["isbn_number"]
     # username = request.session["USERNAME"]
     username = "vamsi"
+    if (isbn_number == None or len(isbn_number)==0):
+        flash("Invalid ISBN Number")
+        return render_template("book_page.html", book=None)
     if not username:
         flash("Your session is closed.. Please login again")
         return redirect(url_for("register"))

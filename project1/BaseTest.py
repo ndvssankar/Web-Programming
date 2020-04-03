@@ -29,7 +29,6 @@ class BaseTestURLs(unittest.TestCase):
         # app.config['DEBUG'] = False
         # if not os.getenv("DATABASE_URL"):
         #     raise RuntimeError("DATABASE_URL is not set")
-
         self.app = app.test_client()
  
         # Disable sending emails during unit testing

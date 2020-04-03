@@ -4,12 +4,11 @@ from flask import url_for, session, flash, jsonify
 from models import *
 from datetime import datetime
 from sqlalchemy import and_
-from book_details import get_book_details
+from user import get_user_details
+from book import get_book_details
 from search import get_books
 from init_app import initialize_production_app
 from sqlalchemy import or_
-
-
 
 try:
     app = initialize_production_app()
@@ -47,10 +46,10 @@ def user_home():
 
 @app.route('/book_page', methods=["GET"])
 def book_page():
-    # isbn_number = request.form["isbn_number"]
-    isbn_number = "1416949658"
-    # username = request.session["USERNAME"]
-    username = "vamsi"
+    isbn_number = request.form["isbn_number"]
+    # isbn_number = "1416949658"
+    username = request.session["USERNAME"]
+    # username = "vamsi"
     if not username:
         flash("Your session is closed.. Please login again")
         return redirect(url_for("register"))
@@ -67,7 +66,8 @@ def login():
     req = request.form
     username = req.get("username")
     password = req.get("password")
-    users = User.query.filter(and_(User.username==username, User.password==password)).all()
+    users = user.get_user_details(username, password)
+    # users = User.query.filter(and_(User.username==username, User.password==password)).all()
     if len(users) == 1:
         session["USERNAME"] = req.get("username")
         return redirect(url_for("user_home"))
@@ -128,7 +128,6 @@ def api_books():
             books_json['books']=l
             return jsonify(books_json), 200
     else:
-        print("Hello................")
         return jsonify({"Error":"invalid search query"}), 422
 
 # @app.route("/api/book/<isbn_number>", methods=["GET"])

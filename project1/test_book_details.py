@@ -3,7 +3,7 @@
 
 import unittest
 from BaseTest import BaseTest
-from book_details import get_book_details
+from book import get_book_details
 
 class Test_Book(BaseTest): 
 

@@ -16,10 +16,10 @@ app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
-def get_books(searchWord):
+def get_books(searchWord = None):
         # print("Srch---"+searchWord)
         books = Book.query.filter(or_(Book.title==searchWord, Book.author==searchWord, Book.year==searchWord,Book.isbn==searchWord)).all()
-        # print(len(books))
+        print(len(books))
         if(len(books)==0):
             return [0,]
         else:

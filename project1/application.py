@@ -1,11 +1,11 @@
 import os
-import search
 from flask import Flask, request, render_template, redirect
 from flask import url_for, session, flash, jsonify
 from models import *
 from datetime import datetime
 from sqlalchemy import and_
 from book_details import get_book_details
+from search import get_books
 from init_app import initialize_production_app
 from sqlalchemy import or_
 
@@ -70,7 +70,7 @@ def login():
     users = User.query.filter(and_(User.username==username, User.password==password)).all()
     if len(users) == 1:
         session["USERNAME"] = req.get("username")
-        return redirect(url_for("user_profile"))
+        return redirect(url_for("user_home"))
     else:
         flash("Invalid username or password")
         return redirect(url_for("register"))
@@ -109,27 +109,33 @@ def search():
 
 @app.route('/api/search/', methods=["POST"])
 def api_books():
-    content= request.get_json()
-    if 'type' in content and 'query' in content:
-        search_query= content['type'].strip()
-        books= search.get_books(search_query)
+    content = request.get_json()
+    print(content["type"])
+    if 'type' in content:
+        search_query = content['type'].strip()
+        books = get_books(search_query)
         if(len(books)==0):
+            print("Hello")
             return jsonify({"Error":"No Match Found"}), 422
         else:
             l=[]
             books_json={}
             for each in books:
                 d={}
-                d["isbn"]=each.isbn
+                d["isbn"] = each.isbn
+                d['title'] = each.title
                 l.append(d)
             books_json['books']=l
-            return jsonify(books_json)
+            return jsonify(books_json), 200
     else:
+        print("Hello................")
         return jsonify({"Error":"invalid search query"}), 422
 
-@app.route("/api/book/<isbn_number>")
-def book_details_web_api(isbn_number):
-    print("here...... ndv ... isbn:", isbn_number)
+# @app.route("/api/book/<isbn_number>", methods=["GET"])
+@app.route("/api/book", methods=["GET"])
+def book_details_web_api():
+    isbn_number = request.args.get("isbn_number")
+    print("In book_details", isbn_number)
     book = get_book_details(isbn_number)
     if book is None:
         return jsonify({"Error":"Invalid ISBN number"}), 422
@@ -137,6 +143,6 @@ def book_details_web_api(isbn_number):
         return jsonify({"ISBN" : book.isbn,
             "Title": book.title,
             "Author" : book.author,
-            "year" : int(book.year)}), 200
+            "Year" : int(book.year)}), 200
     else:
         return jsonify({"Error" : "Server not ready to serve api requestss"}), 500

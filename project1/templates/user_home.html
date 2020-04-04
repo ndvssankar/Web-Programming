@@ -1,20 +1,79 @@
 <html>
     <head>
+      <style>
+         .footer {
+          position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          background-color: black;
+          color: white;
+          text-align: center;
+        }
+        </style>
         {% include 'scripts.html' %}
+        <script src = "{{url_for('static', filename='book_details.js') }}"></script>
+        <script src = "{{url_for('static', filename='search.js') }}"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
     </head>
     <body>
         {% include 'usernavbar.html' %}
         </br>
-        <h1>{{ username }}</h1>
+        <!-- <h1>{{ username }}</h1> -->
 
         <div class="container">
           <div class="row">
-            <div class="col-md-12">.col-md-12</div>
+            <div class="col-md-6">
+            <form action="#" method="GET">
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search your books using title, author, year, ISBN" id="txtSearch"/>
+                <div class="input-group-btn">
+                  <button class="btn btn-primary" type="submit" onClick="search_books()">
+                    <span class="glyphicon glyphicon-search"></span>
+                  </button>
+                </div>
+              </div>
+            </form>
+            </div>
           </div>
           <div class="row">
-            <div class="col-md-4">.col-md-4</div>
-            <div class="col-md-8">.col-md-8</div>            
+            <div class="col-md-4">
+              <table class="table">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Search results are as follows</th>
+                  </tr>
+                </thead>
+                <tbody id="search_books">
+
+                  <!-- <tr scope="row">
+                    <td>
+                      <a id="#book_details" href="#" onclick='get_book_details("1416949658")'>The Dark Is Rising</a>
+                    </td>
+                  </tr> -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- /api/book?isbn_number=1416949658 -->
+
+            <!-- Div for book details -->
+            <div class="col-md-8">
+              <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                      <th scope="col" colspan=2>Details of the book that you have selected are as follows:</th>
+                    </tr>
+                  </thead>
+                  <tbody id="book_details"></tbody>
+                </table>
+            </div>
+            <!-- end of div for book details -->
           </div>
+        </div>
+        
+        <div class="footer">
+          {% include 'footer.html' %}
         </div>
     </body>
 </html>

@@ -3,19 +3,19 @@
 
 import unittest
 from BaseTest import BaseTest
-from book_details import get_book_details
+from book import get_book_details
 
-class Test_Book(BaseTest): 
+class TestBook(BaseTest): 
 
     ###############
     #### tests ####
     ###############
 
-    def test_valid_isbn_book_details(self):
+    def test_valid_isbn_book_details_1(self):
         book = get_book_details("1416949658")
         self.assertEqual(book.title, "The Dark Is Rising")
 
-    def test_valid_isbn_book_details(self):
+    def test_valid_isbn_book_details_2(self):
         book = get_book_details("080213825X")
         self.assertEqual(book.title, "Four Blondes")
     

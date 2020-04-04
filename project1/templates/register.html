@@ -725,7 +725,23 @@
 </div>
 
   <div aria-live="polite" class="js-global-screen-reader-notice sr-only"></div>
-
+  <style>
+    .footer {
+      /* position: absolute;
+      bottom: 0;
+      width: 100%; */
+     position: fixed;
+     left: 0;
+     bottom: 0;
+     width: 100%;
+     background-color: black;
+     color: white;
+     text-align: center;
+   }
+   </style>
+  <div class="footer">
+    {% include 'footer.html' %}
+  </div>
   </body>
 </html>
 

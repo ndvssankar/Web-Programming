@@ -20,10 +20,7 @@ def get_books(searchWord):
         # print("Srch---"+searchWord)
         books = Book.query.filter(or_(Book.title==searchWord, Book.author==searchWord, Book.year==searchWord,Book.isbn==searchWord)).all()
         # print(len(books))
-        if(len(books)==0):
-            return [0,]
-        else:
-            return books
+        return books
 
 def main():
     text = "Aztec"

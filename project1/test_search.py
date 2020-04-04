@@ -20,13 +20,20 @@ class TestStringMethods(unittest.TestCase):
     #### tests ####
     ###############
 
-     def test_valid_isbn_book(self):
-        book = get_books("1416949658")
-        self.assertEqual(book.title, "The Dark Is Rising")
+      def test_valid_isbn_book(self):
+         book = get_books("1416949658")
+         self.assertEqual(book.title, "The Dark Is Rising")
 
-     def test_valid_title_book(self):
-        book = get_books("080213825X")
-        self.assertEqual(book.title, "Four Blondes")
+      def test_valid_title_book(self):
+         book = get_books("080213825X")
+         self.assertEqual(book.title, "Four Blondes")
+
+      def test_valid_author(self):
+         book=get_books("Raymond E. Fetist")
+         self.assertEqual(book.title, "Krondor: The Betrayal")
+
+
+
 
      
 
